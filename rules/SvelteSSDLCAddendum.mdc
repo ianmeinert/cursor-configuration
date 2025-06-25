@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Svelte SSDLC Addendum
+
+This addendum complements the Svelte Best Practices ruleset with Secure Software Development Lifecycle (SSDLC) guidance, ensuring security and quality are addressed at every stage of development.
+
+---
+
+## 1. Threat Modeling & Risk Assessment
+- Perform threat modeling for new features, major changes, or integrations.
+- Identify potential attack vectors (e.g., XSS, CSRF, API abuse, data leakage).
+- Document security assumptions and mitigations in design docs or issue trackers.
+- Use tools like [OWASP Threat Dragon](mdc:https:/owasp.org/www-project-threat-dragon) or [Microsoft Threat Modeling Tool](mdc:https:/www.microsoft.com/en-us/securityengineering/sdl/threatmodeling) for structured analysis.
+
+## 2. Security Testing
+- Integrate static code analysis (e.g., ESLint security plugins) into CI pipelines.
+- Use dependency scanning tools (e.g., `npm audit`, [Snyk](mdc:https:/snyk.io), [Dependabot](mdc:https:/github.com/dependabot)) to detect vulnerable packages.
+- Perform regular vulnerability testing of deployed applications (e.g., [OWASP ZAP](mdc:https:/owasp.org/www-project-zap)).
+- Write and maintain security-focused tests (e.g., input validation, authentication flows, access control).
+- Review and test CORS, CSP, and other security headers.
+
+## 3. Incident Response & Monitoring
+- Implement centralized error and security logging (e.g., Sentry, LogRocket, or custom solutions).
+- Monitor for suspicious activity (e.g., repeated failed logins, unusual API usage).
+- Document incident response procedures:
+  - How to report a security incident
+  - Steps for investigation and remediation
+  - Communication plan for affected users
+- Regularly review and update incident response plans.
+
+## 4. Data Lifecycle Management
+- Define and document data retention and deletion policies for user data.
+- Implement secure deletion of sensitive data (e.g., on user account deletion).
+- Ensure compliance with relevant privacy regulations (e.g., GDPR, CCPA).
+- Review and document third-party data processors and their security practices.
+
+## 5. Developer Security Training
+- Encourage ongoing security training for all developers (e.g., OWASP Top 10, SANS Secure Coding).
+- Share security updates, advisories, and lessons learned in team meetings or documentation.
+
+---
+
+**References:**  
+- [OWASP Secure Software Development Lifecycle Project](mdc:https:/owasp.org/www-project-secure-software-development-life-cycle)  
+- [OWASP Application Security Verification Standard (ASVS)](mdc:https:/owasp.org/www-project-application-security-verification-standard)  
+- [NIST Secure Software Development Framework](mdc:https:/csrc.nist.gov/publications/detail/sp/800-218/final)  
+- [OWASP Top 10](mdc:https:/owasp.org/www-project-top-ten)
+

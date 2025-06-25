@@ -1,0 +1,143 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Svelte Project Best Practices
+
+## 1. Project Structure
+- Use a clear, modular directory structure:
+  ```
+  src/
+    components/
+    routes/
+    stores/
+    lib/
+    styles/
+    utils/
+    assets/
+  ```
+- Group related components and utilities together.
+- Use `index.svelte` for route entry points.
+- Place shared logic in `lib/` or `utils/`.
+
+## 2. Component Design
+- Keep components small and focused (single responsibility).
+- Prefer functional, declarative code over imperative logic.
+- Use props for parent-to-child data flow; use stores for cross-component state.
+- Name components with PascalCase (e.g., `UserCard.svelte`).
+- Export only what's needed; avoid polluting the global namespace.
+
+## 3. State Management
+- Use Svelte stores (`writable`, `readable`, `derived`) for shared state.
+- Keep local state inside components when possible.
+- Avoid global stores for transient or component-specific state.
+- Use custom stores for complex state logic.
+- Unsubscribe from stores in `onDestroy` if subscribing manually.
+
+## 4. Styling
+- Use component-scoped styles (`<style>` in `.svelte` files) by default.
+- For global styles, use `src/styles/global.css` and import in `src/app.html` or root layout.
+- Use CSS variables for theming.
+- Prefer utility classes (e.g., Tailwind) for consistency and rapid development.
+- Avoid inline styles except for dynamic values.
+
+## 5. Accessibility (a11y)
+- Use semantic HTML elements.
+- Add `aria-*` attributes where appropriate.
+- Ensure all interactive elements are keyboard accessible.
+- Use labels for form controls.
+- Test with screen readers and keyboard navigation.
+
+## 6. Performance
+- Use the `$:` reactive statement for efficient updates.
+- Avoid unnecessary reactivity; only make variables reactive when needed.
+- Use the `svelte:component` and `svelte:fragment` for dynamic rendering.
+- Lazy-load components and routes where possible.
+- Minimize use of `onMount` for data fetching; prefer load functions in SvelteKit.
+
+## 7. Error Handling
+- Use try/catch in async functions.
+- Display user-friendly error messages.
+- Use error boundaries (`<svelte:catch>`) for async blocks.
+- Log errors with context for debugging.
+
+## 8. Testing
+- Use [@testing-library/svelte](mdc:https:/testing-library.com/docs/svelte-testing-library/intro) for component tests.
+- Use [Playwright](mdc:https:/playwright.dev) or [Cypress](mdc:https:/www.cypress.io) for end-to-end tests.
+- Write tests for all critical components and stores.
+- Use descriptive test names and keep tests isolated.
+- Mock external dependencies and APIs.
+
+## 9. Documentation
+- Add JSDoc comments to exported functions and stores.
+- Document component props, events, and slots in a comment block at the top of each `.svelte` file.
+- Keep a `README.md` in the project root with setup, build, and deployment instructions.
+- Document environment variables and configuration options.
+
+## 10. Configuration Management
+- Store environment variables in `.env` files; never commit secrets.
+- Use SvelteKit's `$env` module for accessing environment variables.
+- Document all required environment variables in `README.md`.
+
+## 11. Version Control & Commits
+- Follow [Conventional Commits](mdc:https:/www.conventionalcommits.org) for commit messages:
+  ```
+  feat(component): add user profile card
+  fix(store): correct user loading logic
+  docs: update README with setup instructions
+  ```
+- Keep commits focused and atomic.
+- Do not commit generated files or secrets.
+
+## 12. Linting & Formatting
+- Use [Prettier](mdc:https:/prettier.io) for code formatting.
+- Use [ESLint](mdc:https:/eslint.org) with [eslint-plugin-svelte3](mdc:https:/github.com/sveltejs/eslint-plugin-svelte3).
+- Add lint and format scripts to `package.json`.
+- Run linting and formatting in CI.
+
+## 13. Security
+- Sanitize all user input.
+- Avoid `eval` and dynamic code execution.
+- Use HTTPS for all API requests.
+- Store secrets securely; never expose them in the frontend.
+
+## 14. Deployment
+- Document build and deployment steps.
+- Use environment variables for configuration.
+- Optimize assets and enable compression.
+- Use a CDN for static assets if possible.
+
+## 15. Secure API Integration
+
+- Always use HTTPS for all API requests; never send sensitive data over HTTP.
+- Store API base URLs and secrets in environment variables; never hardcode them in the codebase.
+- Use SvelteKit's `$env` module or Vite's `import.meta.env` for environment variables.
+- Sanitize and validate all data sent to and received from APIs.
+- Use appropriate authentication mechanisms (e.g., OAuth2, JWT, API keys) and never expose secrets in the frontend.
+- Handle authentication tokens securely:
+  - Store tokens in `httpOnly` cookies when possible (not accessible to JS).
+  - Avoid storing tokens in `localStorage` or `sessionStorage` unless absolutely necessary.
+  - Never log sensitive tokens or credentials.
+- Implement CSRF protection for state-changing requests if using cookies for authentication.
+- Handle API errors gracefully and never expose sensitive error details to users.
+- Rate-limit API requests on the backend and handle rate-limit responses in the frontend.
+- Use CORS headers correctly; never use `*` for `Access-Control-Allow-Origin` in production.
+- Regularly review and update dependencies used for API integration (e.g., `axios`, `fetch` polyfills).
+
+**Security References:**  
+- [OWASP API Security Top 10](mdc:https:/owasp.org/www-project-api-security)  
+- [Mozilla Web Security Guidelines](mdc:https:/infosec.mozilla.org/guidelines/web_security.html)  
+- [SvelteKit Security Docs](mdc:https:/kit.svelte.dev/docs/security)
+
+---
+
+**References:**  
+- [Svelte Documentation](mdc:https:/svelte.dev/docs)  
+- [SvelteKit Documentation](mdc:https:/kit.svelte.dev/docs)  
+- [Svelte Society Best Practices](mdc:https:/github.com/svelte-society/recipes)  
+- [Conventional Commits](mdc:https:/www.conventionalcommits.org)  
+- [Testing Library Svelte](mdc:https:/testing-library.com/docs/svelte-testing-library/intro)
+
+
+
